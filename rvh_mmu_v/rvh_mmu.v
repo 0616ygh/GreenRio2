@@ -126,13 +126,6 @@ module rvh_mmu (
 	output tlb_flush_grant_o;
 	input clk;
 	input rstn;
-	initial begin
-		$dumpfile("wave.vcd");
-		$dumpvars;
-		$dumpon;
-		$dumpall;
-		$dumpflush;
-	end
 	localparam PMP_ACCESS_TYPE_R = 0;
 	localparam PMP_ACCESS_TYPE_W = 1;
 	localparam PMP_ACCESS_TYPE_X = 2;

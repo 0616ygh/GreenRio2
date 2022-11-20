@@ -1,3 +1,4 @@
+%%writefile config.tcl
 set script_dir [file dirname [file normalize [info script]]]
 # This makes sure that the core rings are outside the boundaries
 # of your block.
@@ -53,7 +54,7 @@ set ::env(VERILOG_FILES) "\
     $::env(DESIGN_DIR)/../decode/rv_decoder.v \
     $::env(DESIGN_DIR)/../decode/decode.v \
 	  $::env(DESIGN_DIR)/../csr/excep_ctrl.v \
-  	$::env(DESIGN_DIR)/../rcu/unit/counter.v \
+  	$::env(DESIGN_DIR)/../rcu/unit/counter/counter.v \
     $::env(DESIGN_DIR)/../rcu/unit/fifo/fifo_for_freelist.v \
     $::env(DESIGN_DIR)/../fetch/btb.v \
     $::env(DESIGN_DIR)/../fetch/gshare.v \
@@ -79,7 +80,7 @@ set ::env(VERILOG_FILES) "\
     $::env(DESIGN_DIR)/../utils/commoncell/src/StdDFF/hw/DFFE.v \
     $::env(DESIGN_DIR)/../utils/commoncell/src/StdDFF/hw/DFFR.v \
     $::env(DESIGN_DIR)/../utils/commoncell/src/StdDFF/hw/DFFRE.sv \
-    $::env(DESIGN_DIR)/../lsuv1/arbiter_base.v \
+    $::env(DESIGN_DIR)/../rcu/unit/oldest2_abitter/arbiter_base.v \
     $::env(DESIGN_DIR)/../lsuv1/lsu_agu.v \
     $::env(DESIGN_DIR)/../lsuv1/lsu_bus_ctrl.v \
     $::env(DESIGN_DIR)/../lsuv1/lsu_lsq_entry.v \
@@ -95,7 +96,7 @@ set ::env(VERILOG_FILES) "\
     $::env(DESIGN_DIR)/../fu/md.v \
     $::env(DESIGN_DIR)/../fu/fu.v \
 	  $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_ptw.v \
-    $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_tlb_arbiter.sv \
+    $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_tlb_arbiter.v \
     $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_pmp/rvh_pmp.v \
     $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_pmp/rvh_pmp_entry.v \
     $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_dtlb.v \
@@ -103,7 +104,7 @@ set ::env(VERILOG_FILES) "\
     $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_mmu_mshr.v \
     $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_mmu.v \
     $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_monolithic_mmu.v \
-	  $::env(DESIGN_DIR)/../rcu/unit/f2if2o//physical_regfile.sv \
+	  $::env(DESIGN_DIR)/../rcu/unit/physical_regfile/physical_regfile.sv \
     $::env(DESIGN_DIR)/../rcu/unit/f2if2o/f2if2o_freelist.v \
     $::env(DESIGN_DIR)/../rcu/unit/oldest2_abitter_bps/oldest2_abitter_bps.v \
     $::env(DESIGN_DIR)/../rcu/unit/oldest2_abitter_bps_lss/oldest2_abitter_bps_lss.v \

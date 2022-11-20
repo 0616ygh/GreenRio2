@@ -19,7 +19,7 @@ module rvh_pmp (
 	parameter PMPCFG_ENTRY_COUNT = 8;
 	parameter PADDR_WIDTH = 56;
 	parameter PMPADDR_ID_WIDTH = $clog2(PMP_ENTRY_COUNT);
-	parameter PMPCFG_ID_WIDTH = $clog2(PMPCFG_ENTRY_COUNT);
+	parameter PMPCFG_ID_WIDTH = $clog2(8);
 	parameter INPUT_REGISTER = 0;
 	input [1:0] priv_lvl_i;
 	input cfg_set_vld_i;

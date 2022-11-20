@@ -131,13 +131,6 @@ module rvh_monolithic_mmu (
 	output ptw_walk_resp_rdy_o;
 	input clk;
 	input rstn;
-	initial begin
-		$dumpfile("wave.vcd");
-		$dumpvars;
-		$dumpon;
-		$dumpall;
-		$dumpflush;
-	end
 	wire arbitated_dtlb_miss_req_vld;
 	wire arbitated_itlb_miss_req_vld;
 	wire dtlb_miss_req_vld;

@@ -10,7 +10,7 @@ set ::env(GRT_ALLOW_CONGESTION) 0
 set script_dir $::env(DESIGN_DIR)
 set ::env(VERILOG_FILES) "\
 	$::env(DESIGN_DIR)/../params.vh \
-    $::env(DESIGN_DIR)/../rcu/unit/counter.v \
+    $::env(DESIGN_DIR)/../rcu/unit/counter/counter.v \
     $::env(DESIGN_DIR)/../rcu/unit/fifo/fifo_for_freelist.v \
     $::env(DESIGN_DIR)/btb.v \
     $::env(DESIGN_DIR)/gshare.v \

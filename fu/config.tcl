@@ -35,7 +35,7 @@ set ::env(VERILOG_FILES) "\
     $::env(DESIGN_DIR)/../utils/commoncell/src/StdDFF/hw/DFFE.v \
     $::env(DESIGN_DIR)/../utils/commoncell/src/StdDFF/hw/DFFR.v \
     $::env(DESIGN_DIR)/../utils/commoncell/src/StdDFF/hw/DFFRE.sv \
-    $::env(DESIGN_DIR)/../lsuv1/arbiter_base.v \
+    $::env(DESIGN_DIR)/../rcu/unit/oldest2_abitter/arbiter_base.v \
     $::env(DESIGN_DIR)/../lsuv1/lsu_agu.v \
     $::env(DESIGN_DIR)/../lsuv1/lsu_bus_ctrl.v \
     $::env(DESIGN_DIR)/../lsuv1/lsu_lsq_entry.v \

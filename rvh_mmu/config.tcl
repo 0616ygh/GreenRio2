@@ -26,7 +26,7 @@ set ::env(VERILOG_FILES) "\
     $::env(DESIGN_DIR)/../utils/commoncell/src/StdDFF/hw/DFFR.v \
     $::env(DESIGN_DIR)/../utils/commoncell/src/StdDFF/hw/DFFRE.v \
     $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_ptw.v \
-    $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_tlb_arbiter.sv \
+    $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_tlb_arbiter.v \
     $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_pmp/rvh_pmp.v \
     $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_pmp/rvh_pmp_entry.v \
     $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_dtlb.v \

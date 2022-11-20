@@ -450,8 +450,8 @@ wire                                                   ft2itlb_req_vld;
 wire [L1I_TAG_WIDTH-1:0]                               ft2itlb_if_req_vtag;
 wire                                                   ft2itlb_if_req_rdy;
 wire                                                   itlb2ft_if_resp_vld;
-wire [TRANSLATE_WIDTH-1:0][         PPN_WIDTH-1:0] itlb2icache_ic_ptag;
 
+wire [(TRANSLATE_WIDTH * EXCP_CAUSE_WIDTH) - 1:0] itlb2ft_resp_excp_cause; 
 
 wire [TRANSLATE_WIDTH-1:0] itlb2ft_resp_excp_vld;            //to-do
 wire [TRANSLATE_WIDTH*EXCP_CAUSE_WIDTH-1:0] itlb2ft_resp_excp_cause;    //to-do
