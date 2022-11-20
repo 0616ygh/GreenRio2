@@ -1,30 +1,43 @@
 set ::env(PDK) "sky130A"
 set script_dir $::env(DESIGN_DIR)
 set ::env(MAGIC_ZEROIZE_ORIGIN) 0
-set ::env(FP_SIZING) absolute
-set ::env(DIE_AREA) "0 0 1920 1920"
-set ::env(PL_TARGET_DENSITY) 0.36
+set ::env(FP_CORE_UTIL) 30
+set ::env(PL_TARGET_DENSITY) 0.34
 set ::env(DESIGN_NAME) rvh_monolithic_mmu
 set ::env(VERILOG_FILES) "\
-$script_dir/rvh_dtlb.v \
-$script_dir/rvh_itlb.v \
-$script_dir/rvh_mmu.v \
-$script_dir/rvh_mmu_mshr.v \
-$script_dir/rvh_monolithic_mmu.v \
-$script_dir/rvh_ptw.v \
-$script_dir/rvh_pmp/rvh_pmp.v \
-$script_dir/rvh_pmp/rvh_pmp_entry.v \
-$script_dir/../utils/commoncell/src/Queue/hw/QueueManager.v \
-$script_dir/../utils/commoncell/src/Basic/hw/PLRU.v \
-$script_dir/../utils/commoncell/src/Basic/hw/OH2UInt.v \
-$script_dir/../utils/commoncell/src/StdDFF/hw/DFF.v \
-$script_dir/../utils/commoncell/src/StdDFF/hw/DFFE.v \
-$script_dir/../utils/commoncell/src/StdDFF/hw/DFFR.v \
-$script_dir/../utils/commoncell/src/StdDFF/hw/DFFRE.v \
-"
+    $::env(DESIGN_DIR)/../params.vh \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Basic/hw/CountOne.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Basic/hw/MuxOH.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Basic/hw/OH2UInt.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Basic/hw/PLRU.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Basic/hw/PLRUTree.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Basic/hw/PriorityMux.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Basic/hw/StreamFIFO.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Basic/hw/SyncFIFO.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Queue/hw/AgeMatrixSelector.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Queue/hw/QueueManager.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Queue/hw/StaticPrioritySelector.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Queue/hw/FIAO/FIAOWithAgeMatrix.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Queue/hw/FIAO/FIAOWithQueueManager.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/Queue/hw/FIFO/MultiPortStreamFIFO.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/StdDFF/dv/DFFUncertainChecker.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/StdDFF/hw/DFF.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/StdDFF/hw/DFFE.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/StdDFF/hw/DFFR.v \
+    $::env(DESIGN_DIR)/../utils/commoncell/src/StdDFF/hw/DFFRE.v \
+    $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_ptw.v \
+    $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_tlb_arbiter.sv \
+    $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_pmp/rvh_pmp.v \
+    $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_pmp/rvh_pmp_entry.v \
+    $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_dtlb.v \
+    $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_itlb.v \
+    $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_mmu_mshr.v \
+    $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_mmu.v \
+    $::env(DESIGN_DIR)/../rvh_mmu_v/rvh_monolithic_mmu.v 
+    "
 ## Clock configurations
 set ::env(CLOCK_PORT) "clk"
-set ::env(CLOCK_PERIOD) "12.5"
+set ::env(CLOCK_PERIOD) "25"
 set ::env(RT_MAX_LAYER) {met4}
 set ::env(FP_PDN_CHECK_NODES) 0
 set ::env(PL_RESIZER_DESIGN_OPTIMIZATIONS) 0

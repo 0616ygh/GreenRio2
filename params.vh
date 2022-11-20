@@ -145,20 +145,20 @@ parameter NUM_ELEMENTS = INS_BUFFER_SIZE * INS_BUFFER_DATA / SIZE_ELEMENT  ;
 parameter PTR_WIDTH = $clog2(NUM_ELEMENTS)                                 ;
 parameter NUM_ELEMENTS_PER_LINE = NUM_ELEMENTS / INS_BUFFER_SIZE           ;
 // RCU
-parameter ROB_SIZE = 16;
-parameter ROB_SIZE_WIDTH = 4;
+parameter ROB_SIZE = 4;
+parameter ROB_SIZE_WIDTH = 2;
 parameter ROB_INDEX_WIDTH = ROB_SIZE_WIDTH;
-parameter PHY_REG_SIZE = 48;
+parameter PHY_REG_SIZE = 36;
 parameter PHY_REG_ADDR_WIDTH = 6; 
 parameter FRLIST_DATA_WIDTH = 6;
 parameter FRLIST_DEPTH = PHY_REG_SIZE - 1; //p0 is not in the fifo FRLIST_DEPTH = PHY_REG_SIZE - 1
 parameter FRLIST_DEPTH_WIDTH = 6; //combine with physical register later
 
-parameter MD_QUEUE_DEPTH = 4;
-parameter MD_QUEUE_DEPTH_WIDTH = 2;
+parameter MD_QUEUE_DEPTH = 2;
+parameter MD_QUEUE_DEPTH_WIDTH = 1;
 
-parameter LSU_QUEUE_DEPTH = 4;
-parameter LSU_QUEUE_DEPTH_WIDTH = 2;
+parameter LSU_QUEUE_DEPTH = 2;
+parameter LSU_QUEUE_DEPTH_WIDTH = 1;
 
 
 // exception code
@@ -400,6 +400,12 @@ parameter MD_DATA_WIDTH = ROB_INDEX_WIDTH + PHY_REG_ADDR_WIDTH + XLEN + XLEN + 3
 parameter LSU_DATA_WIDTH = ROB_INDEX_WIDTH + PHY_REG_ADDR_WIDTH + XLEN + XLEN + IMM_LEN + 1 + 1 + LDU_OP_WIDTH + STU_OP_WIDTH + 1 + 2 + 1 + 1 + 1;
 
 
-
+//mmu
+parameter PTW_ID_WIDTH = 1;
+parameter TRANS_ID_WIDTH = 3;
+parameter PADDR_WIDTH = 56;
+parameter EXCP_CAUSE_WIDTH = 64;
+parameter VPN_WIDTH = 27;
+parameter PMP_ENTRY_COUNT = 8;
 /*verilator lint_off UNUSED */
 `endif // PARAMS_VH
