@@ -1,0 +1,9 @@
+csrc/
+logs/
+simv.daidir/
+Verdi-SXLog/
+
+novas*
+*.log
+simv
+ucli.key

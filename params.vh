@@ -116,6 +116,7 @@ parameter SATP_ASID_WIDTH = 16;
 parameter SATP_MODE_WIDTH = 4;
 
 //fetch
+parameter PMP_ENTRY_COUNT = 8                                           ;
 parameter BTB_SIZE = 4                                                  ;
 parameter BTB_WIDTH = 2                                                 ; //log2(up)
 parameter GSHARE_WIDTH = 4                                              ;
@@ -135,6 +136,7 @@ parameter TRANS_ID_WIDTH = 3                                            ;
 parameter PTE_WIDTH = 64                                                ;
 parameter VPN_WIDTH = 27                                                ;
 parameter PAGE_LVL_WIDTH = $clog2(VPN_WIDTH/9)                          ;
+parameter PMPCFG_ENTRY_COUNT = PMP_ENTRY_COUNT / 8                      ;
 
 parameter PADDR_WIDTH = PHYSICAL_ADDR_LEN                                                 ;
 parameter INDEX_WIDTH = 8                                                  ;
@@ -143,20 +145,20 @@ parameter NUM_ELEMENTS = INS_BUFFER_SIZE * INS_BUFFER_DATA / SIZE_ELEMENT  ;
 parameter PTR_WIDTH = $clog2(NUM_ELEMENTS)                                 ;
 parameter NUM_ELEMENTS_PER_LINE = NUM_ELEMENTS / INS_BUFFER_SIZE           ;
 // RCU
-parameter ROB_SIZE = 4;
-parameter ROB_SIZE_WIDTH = 2;
+parameter ROB_SIZE = 16;
+parameter ROB_SIZE_WIDTH = 4;
 parameter ROB_INDEX_WIDTH = ROB_SIZE_WIDTH;
-parameter PHY_REG_SIZE = 36;
+parameter PHY_REG_SIZE = 48;
 parameter PHY_REG_ADDR_WIDTH = 6; 
 parameter FRLIST_DATA_WIDTH = 6;
 parameter FRLIST_DEPTH = PHY_REG_SIZE - 1; //p0 is not in the fifo FRLIST_DEPTH = PHY_REG_SIZE - 1
 parameter FRLIST_DEPTH_WIDTH = 6; //combine with physical register later
 
-parameter MD_QUEUE_DEPTH = 2;
-parameter MD_QUEUE_DEPTH_WIDTH = 1;
+parameter MD_QUEUE_DEPTH = 4;
+parameter MD_QUEUE_DEPTH_WIDTH = 2;
 
-parameter LSU_QUEUE_DEPTH = 2;
-parameter LSU_QUEUE_DEPTH_WIDTH = 1;
+parameter LSU_QUEUE_DEPTH = 4;
+parameter LSU_QUEUE_DEPTH_WIDTH = 2;
 
 
 // exception code
@@ -213,7 +215,19 @@ parameter XLEN_M_PCWIDTH = XLEN - PC_WIDTH;
 
 
 // MMU 
+parameter PTW_ID_WIDTH = 1;
+parameter EXCP_CAUSE_WIDTH = EXCEPTION_CAUSE_WIDTH;
+
+
 parameter TRANSLATE_WIDTH  = 1;
+parameter DTLB_TRANSLATE_WIDTH = 1;
+parameter DTLB_ENTRY_COUNT = 32;
+parameter DTLB_MSHR_COUNT = 4;
+parameter DTLB_TRANS_ID_WIDTH = 3;
+    
+parameter ITLB_TRANSLATE_WIDTH = 1;
+parameter ITLB_ENTRY_COUNT = 32;
+parameter ITLB_TRANS_ID_WIDTH = 3;
 
 parameter PMP_ACCESS_TYPE_WIDTH  = 1;
 parameter PMP_ACCESS_TYPE_R = 0;
@@ -252,6 +266,9 @@ parameter STU_SW = 2;
 parameter STU_SD = 3;
 
 parameter LS_OPCODE_WIDTH = LDU_OP_WIDTH > STU_OP_WIDTH ? LDU_OP_WIDTH : STU_OP_WIDTH;
+
+//ebi
+parameter EBI_WIDTH = 16;
 
 // fence
 // TODO: fixed FEMCE

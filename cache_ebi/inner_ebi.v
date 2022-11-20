@@ -264,6 +264,7 @@ end
 //--------------------------------- TRX FSM --------------------------------
 
 always @(*) begin
+    /* verilator lint_off CASEINCOMPLETE */
     trx_next_state = trx_current_state;
     if (current_bus_occupy) begin  // ebi as master to read/write
         case(trx_current_state)
@@ -313,6 +314,7 @@ always @(*) begin
             end  
         endcase
     end
+    /* verilator lint_on CASEINCOMPLETE */
 end
 
 always @(posedge clk) begin

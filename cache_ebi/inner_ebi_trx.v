@@ -92,6 +92,7 @@ always @(posedge clk) begin
         recv_counter_max <= 'h1f;
         rcv_buf <= 'h0;
     end else begin
+    /* verilator lint_off CASEINCOMPLETE */
         if (is_counter_reload) begin
             recv_counter <= 'b0;  // this operation will cover the counter corresponding to  opcode, so recv_buffer don't store opcode
             case(rff_rcv_data[3:0])  // 4bit opcode in transaction header
@@ -113,6 +114,7 @@ always @(posedge clk) begin
         if(is_rd_rcv) begin
             rcv_buf[recv_counter*EBI_WIDTH +: EBI_WIDTH] <= rff_rcv_data; //会接收到opcode 自低向高接收
         end
+    /* verilator lint_on CASEINCOMPLETE */
     end
 end
 

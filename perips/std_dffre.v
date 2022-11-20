@@ -13,7 +13,7 @@ module std_dffre (
 	output wire [WIDTH - 1:0] q;
 	reg [WIDTH - 1:0] dff_q;
 	always @(posedge clk or negedge rstn)
-		if (rstn)
+		if (~rstn)
 			dff_q <= {WIDTH {1'b0}};
 		else if (en)
 			dff_q <= d;

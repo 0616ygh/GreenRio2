@@ -236,6 +236,7 @@ wire snp_resp_done;
 
 always @(*) begin
     trx_next_state = trx_current_state;
+    /* verilator lint_off CASEINCOMPLETE */
     if (current_bus_occupy) begin  // ebi as master to snp_req
         case(trx_current_state)
             IDLE: begin
@@ -287,6 +288,7 @@ always @(*) begin
             end
         endcase
     end
+    /* verilator lint_on CASEINCOMPLETE */
 end
 
 always @(posedge clk) begin

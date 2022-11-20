@@ -1,0 +1,9 @@
+$PROJ_ROOT/src_new/rvh_mmu_v/rvh_tlb_arbiter.sv
+$PROJ_ROOT/src_new/rvh_mmu_v/rvh_mmu_mshr.sv
+$PROJ_ROOT/src_new/rvh_mmu_v/rvh_dtlb.sv
+$PROJ_ROOT/src_new/rvh_mmu_v/rvh_itlb.sv
+$PROJ_ROOT/src_new/rvh_mmu_v/rvh_ptw.sv
+$PROJ_ROOT/src_new/rvh_mmu_v/rvh_pmp/rvh_pmp_entry.sv
+$PROJ_ROOT/src_new/rvh_mmu_v/rvh_pmp/rvh_pmp.sv
+$PROJ_ROOT/src_new/rvh_mmu_v/rvh_mmu.sv
+$PROJ_ROOT/src_new/rvh_mmu_v/rvh_monolithic_mmu.sv

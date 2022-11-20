@@ -1,0 +1,30 @@
+
+17. Printing statistics.
+
+=== rcu ===
+
+   Number of wires:              70569
+   Number of wire bits:          82616
+   Number of public wires:        1127
+   Number of public wire bits:   13017
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:              81423
+     $_ANDNOT_                    4267
+     $_AND_                       3887
+     $_DFFE_PP_                  10423
+     $_DFF_P_                      264
+     $_DLATCH_N_                     1
+     $_MUX_                      50339
+     $_NAND_                       271
+     $_NOR_                        565
+     $_NOT_                       7154
+     $_ORNOT_                      320
+     $_OR_                        3598
+     $_SDFFCE_PN0P_                 32
+     $_SDFFE_PP0P_                  30
+     $_SDFF_PP0_                    76
+     $_XNOR_                        14
+     $_XOR_                        182
+

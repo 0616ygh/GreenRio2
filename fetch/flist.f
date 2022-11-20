@@ -1,0 +1,9 @@
+../params.vh
+../rcu/unit/fifo/fifo_for_freelist.v
+../rcu/unit/counter/counter.v
+./fetch.v
+./gshare.v
+./btb.v
+./ins_buffer.v
+./tb_fetch.v
+./selftest/dpram64.v
