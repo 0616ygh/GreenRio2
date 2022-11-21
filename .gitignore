@@ -1,2 +1,4 @@
 build
-core.vcd
+logs
+gmon.out
+*.vcd

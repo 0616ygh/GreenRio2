@@ -29,8 +29,8 @@ CORE_SRC += $(SRC_ROOT)/utils/commoncell/counter2.sv
 CORE_SRC += $(shell find $(SRC_ROOT)/lsuv1 -type f -name '*v') params.vh utils/commoncell/dpram64_2r1w.v core.sv
 
 # HEX_FILE ?= $(DV_ROOT)/isa/hex/rv64ui/beq.hex
-HEX_FILE ?= $(DV_ROOT)/torture/hex/test3.hex
-# HEX_FILE ?= $(DV_ROOT)/benchmark/hex/dhrystone.hex
+# HEX_FILE ?= $(DV_ROOT)/torture/hex/test3.hex
+HEX_FILE ?= $(DV_ROOT)/benchmark/hex/aha-mont64.hex
 # HEX_FILE ?= $(DV_ROOT)/benchmark/hex/coremark.hex
 DEFINE := VERILATOR+DPRAM64_2R1W+SYNTHESIS+LSU_V1+HEX_DIR="\"$(HEX_FILE)\""
 
@@ -39,7 +39,7 @@ VERIFLAGS := -Mdir build --timescale 1ns/1ps --timescale-override 1ns/1ps --prof
 		  --Wno-IMPLICIT --Wno-LITENDIAN --Wno-SELRANGE --Wno-UNOPTFLAT --Wno-WIDTHCONCAT --Wno-REDEFMACRO --Wno-REALCVT --Wno-LATCH --Wno-CASEINCOMPLETE\
 		  --cc --trace --exe --build +define+$(DEFINE)
 
-verilator = ~/../zxluan/verilator/bin/verilator
+verilator ?= verilator
 
 default: verify_core
 

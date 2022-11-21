@@ -9,7 +9,6 @@
 
 #define HALF_CYCLE 10
 
-//mid: 1 core 2 caravel 3 testio(outside) 4 uart(outside)
 struct CORE {
     Vtb_top* logic;
     VerilatedContext* contextp;
@@ -26,7 +25,7 @@ void CORE::init(){
     tfp = new VerilatedVcdC;
     contextp->traceEverOn(true); 
     logic->trace(tfp, 0);
-    tfp->open("core_waves.vcd");
+    // tfp->open("core_waves.vcd");
 }
 
 void CORE::cycle(){

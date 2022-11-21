@@ -112,15 +112,15 @@ module rvh_monolithic_mmu #(
     input [PTE_WIDTH-1:0]                               ptw_walk_resp_pte_i,
     output                                              ptw_walk_resp_rdy_o
 );
-`ifndef synthesis
-    initial begin
-    $dumpfile("wave.vcd");
-    $dumpvars;
-    $dumpon;
-    $dumpall;
-    $dumpflush;
-    end
-`endif //synthesis
+// `ifndef synthesis
+//     initial begin
+//     $dumpfile("wave.vcd");
+//     $dumpvars;
+//     $dumpon;
+//     $dumpall;
+//     $dumpflush;
+//     end
+// `endif //synthesis
     // Arbitration
     wire arbitated_dtlb_miss_req_vld;
     wire arbitated_itlb_miss_req_vld;
