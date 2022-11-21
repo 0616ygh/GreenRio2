@@ -23,6 +23,9 @@
 // This is based on lowRISC's muntjac divider design.
 //`include "../params.vh"
 
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module div(
     input  wire         clk,
     input  wire         rst,

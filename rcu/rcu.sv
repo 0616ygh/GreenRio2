@@ -1,8 +1,8 @@
 `ifndef _RCU_V_
 `define _RCU_V_
-`ifndef SYNTHESIS
-`include "../params.vh"
-`endif // SYNTHESIS
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module rcu(
     input clk                                                   ,
     input rst                                                   ,

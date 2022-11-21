@@ -1,11 +1,6 @@
-// 2 lines, 16*8 in each line, configurable
-
-`ifndef SYNTHESIS
-// `include "../params.vh"
+`ifdef VERILATOR
+`include "params.vh"
 `endif
-
-//`include "../params.vh"
-
 module ins_buffer #(
     parameter OFFSET_WIDTH = 4
 ) (

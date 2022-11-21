@@ -1,9 +1,9 @@
 
 `ifndef _LSU_MC_V_
 `define _LSU_MC_V_
-`ifndef VCS
-`include "../params.vh"
-`endif // VCS
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 /* verilator lint_off UNUSED */
 module lsu_mc (
     input                                       rcu_ac_valid_i,

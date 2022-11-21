@@ -1,5 +1,5 @@
-`ifdef SYNTHESIS
-// `include "../params.vh"
+`ifdef VERILATOR
+`include "params.vh"
 `endif
 
 module csr_regfile (
@@ -266,7 +266,7 @@ begin: validata_address
         end
         12'h320,  // mcountinhibit
         12'h323, 12'h324, 12'h325, 12'h326, 12'h327, 
-        12'h328, 12'h328, 12'h329, 12'h32A, 12'h32B,
+        12'h328, 12'h329, 12'h32A, 12'h32B,
         12'h32C, 12'h32D, 12'h32E, 12'h32F, 12'h33? :
         begin // mhpmeventX
             readable_o = 1;

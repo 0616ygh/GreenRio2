@@ -1,6 +1,6 @@
-`ifndef SYNTHESIS
-`include "../params.vh"
-`endif // SYNTHESIS
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 
 module core_top(
     input clk,
@@ -455,8 +455,6 @@ wire [(TRANSLATE_WIDTH * EXCP_CAUSE_WIDTH) - 1:0] itlb2ft_resp_excp_cause;
 
 wire [TRANSLATE_WIDTH-1:0] itlb2ft_resp_excp_vld;            //to-do
 wire [TRANSLATE_WIDTH*EXCP_CAUSE_WIDTH-1:0] itlb2ft_resp_excp_cause;    //to-do
-wire [TRANSLATE_WIDTH-1:0] itlb_translate_resp_miss_o;        //fetch & cache
-wire [TRANSLATE_WIDTH-1:0] itlb_translate_resp_hit_o;
 
 wire itlb_translate_resp_miss_w;
 wire itlb_translate_resp_hit_w;

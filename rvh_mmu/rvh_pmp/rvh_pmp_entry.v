@@ -1,3 +1,6 @@
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module rvh_pmp_entry #(
     parameter PADDR_WIDTH = 56
 ) (

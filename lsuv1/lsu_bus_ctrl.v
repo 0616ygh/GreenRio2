@@ -1,7 +1,7 @@
 `ifndef _LSU_BUS_CTRL_
 `define _LSU_BUS_CTRL_
-`ifndef VCS
-`include "../params.vh"
+`ifdef VERILATOR
+`include "params.vh"
 `endif
 // TODO: do not support io amo operation
 module lsu_bus_ctrl(

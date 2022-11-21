@@ -1,3 +1,6 @@
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module rvh_pmp #(
     parameter PMP_ENTRY_COUNT = 64,
     parameter PMPCFG_ENTRY_COUNT = 8,

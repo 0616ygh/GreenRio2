@@ -6,9 +6,9 @@
 // lsu router
 `ifndef _LSU_PMA_CHECKER_V_
 `define _LSU_PMA_CHECKER_V_
-`ifndef VCS
-`include "../params.vh"
-`endif // VCS
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module lsu_pma_checker(
     input                                   clk, 
     input                                   rst, 

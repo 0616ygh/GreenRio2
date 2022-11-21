@@ -1,3 +1,6 @@
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module rvh_monolithic_mmu #(
     // parameter XLEN = 64,
     // parameter PTW_ID_WIDTH = 1,

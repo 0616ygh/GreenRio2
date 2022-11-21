@@ -1,8 +1,8 @@
 `ifndef _LSU_WB_ARB_V_
 `define _LSU_WB_ARB_V_
-`ifndef VCS
-`include "../params.vh"
-`endif // VCS
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module lsu_wb_arb (
     // global 
     input clk, rst, flush,

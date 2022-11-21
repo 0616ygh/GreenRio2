@@ -1,4 +1,6 @@
-//`include "../params.vh"
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module alu(
 input clk,
 input rstn,

@@ -1,9 +1,9 @@
 `ifndef FETCH_V
 `define FETCH_V
-//`include "../params.vh"
-`ifndef SYNTHESIS
-//`include "../params.vh"
+`ifdef VERILATOR
+`include "params.vh"
 `endif
+
 module fetch (
     // for itlb
     /* for test

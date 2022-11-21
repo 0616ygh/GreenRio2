@@ -1,5 +1,5 @@
-`ifndef SYNTHESIS
-`include "../params.vh"
+`ifdef VERILATOR
+`include "params.vh"
 `endif
 module excep_ctrl (
     //from rcu

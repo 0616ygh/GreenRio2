@@ -1,9 +1,7 @@
 `ifndef FU_V
 `define FU_V
-//`define LSU_DONE
-`ifndef SYNTHESIS
-`include "src_new/hehe_cfg.vh"
-`include "../params.vh"
+`ifdef VERILATOR
+`include "params.vh"
 `endif
 module fu #(
     parameter LSQ_ENTRY_NUM = 8,

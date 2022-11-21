@@ -1,9 +1,9 @@
 `ifndef _LSUV1_V_
 `define _LSUV1_V_
-`ifndef VCS
-`include "../hehe_cfg.vh"
-`include "../params.vh"
-`endif // VCS
+`ifdef VERILATOR
+`include "hehe_cfg.vh"
+`include "params.vh"
+`endif
 // TODO: need to support FENCE and AMO
 module lsuv1 #(
     parameter LSQ_ENTRY_NUM = 8,

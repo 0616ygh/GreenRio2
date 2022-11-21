@@ -1,3 +1,6 @@
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module rvh_mmu #(
     parameter PTW_ID_WIDTH = 1,
     parameter TRANS_ID_WIDTH = 3,

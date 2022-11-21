@@ -1,7 +1,7 @@
 `ifndef RV_DECODER_V
 `define RV_DECODER_V
-`ifndef SYNTHESIS
-`include "../params.vh"
+`ifdef VERILATOR
+`include "params.vh"
 `endif
 
 module rv_decoder (

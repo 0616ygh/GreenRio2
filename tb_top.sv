@@ -1,12 +1,10 @@
-module tb_top;
-
-`ifndef HEX_DIR
-`define HEX_DIR "\"haha.hex\""
+`ifdef VERILATOR
+`include "params.vh"
 `endif
-
-`ifndef WAVE_FILE
-`define WAVE_FILE "\"waves.fsdb\""
-`endif
+module tb_top(
+    input clk,
+    input rst
+);
 
 parameter DRAM_SIZE = 1 << 29; //18;
 parameter DRAM_AXI_DATA_WIDTH = 128;
@@ -15,8 +13,6 @@ parameter DRAM_INDEX_WIDTH = $clog2(DRAM_INDEX_NUM);
 parameter PERIOD = 20;
 parameter SIMU_TIME = 10000;
 
-logic                                           clk;
-logic                                           rst;
 //fetch
 logic                                           ft2l1i_if_req_rdy_i;
 logic                                           l1i2ft_if_resp_vld_i;
@@ -171,53 +167,19 @@ logic st_fence_vld_1_delay;
 logic st_fence_vld_2_delay;
 logic st_fence_vld_3_delay;
 
-always #(PERIOD/2) clk = ~clk; 
-
-import "DPI-C" function void init_cosim();
-
-// simulation lenth
-logic mid = 0;
-integer co_sim_fd;
-integer run_test_fd;
-integer co_sim_haha_fd;
-int queue[47];
-logic signal;
-initial begin 
-    init_cosim();
-    `ifdef HAHA
-    co_sim_haha_fd = $fopen("./haha.log", "w");
-    `endif
-    co_sim_fd = $fopen("./co_sim.log", "w");
-    run_test_fd = $fopen("./all_test.log", "a+");
-    signal = 0;
-    clk = 0;
-    rst = 1;
-    l1d2fu_lsu_wb_vld_i = 0;
-    msip_i = 0;
-    ssip_i = 0;
-    mtip_i = 0;
-    stip_i = 0;
-    eip_i  = 0;
-    l1d2fu_lsu_ld_replay_vld_i = 0;
-    l1d2fu_lsu_st_req_rdy_i = 1;
-    l1d2fu_lsu_ld_req_rdy_i = 1;
-    l1d_lsu_fencei_flush_grant_i = 0;
-    l1i_lsu_fencei_flush_grant_i = 0;
-    #40
-    @(negedge clk)
-    rst = 0;
-    // # 100000;
-    // # 10000000;
-    #100000000;
-    $fdisplay(run_test_fd, "%s simulation terminated", `HEX_DIR);    
-    `ifdef HAHA
-    $fclose(co_sim_haha_fd);
-    `endif
-    $fclose(co_sim_fd);
-    $fclose(run_test_fd);
-    $display ("%s",`HEX_DIR);
-    $display ("simulation terminated");
-    $finish;
+always @(posedge clk) begin
+    if (rst) begin
+        msip_i = 0;
+        ssip_i = 0;
+        mtip_i = 0;
+        stip_i = 0;
+        eip_i  = 0;
+        l1d2fu_lsu_ld_replay_vld_i = 0;
+        l1d2fu_lsu_st_req_rdy_i = 1;
+        l1d2fu_lsu_ld_req_rdy_i = 1;
+        l1d_lsu_fencei_flush_grant_i = 0;
+        l1i_lsu_fencei_flush_grant_i = 0;
+    end
 end
 
 logic [PC_WIDTH-1:0] dram_waddr_3_delay, dram_waddr_2_delay, dram_waddr_1_delay;
@@ -265,15 +227,6 @@ assign l1i2ft_if_resp_data_i = dram_rdata_i;
 assign itlb2ft_miss_i = 0;
 assign itlb_fetch_resp_excp_vld_i = 0;
 assign itlb_fetch_resp_ecause_i = 0;
-
-// dtlb
-// always @(posedge clk) begin
-//         dtlb2fu_lsu_vld_i <= fu2dtlb_lsu_iss_vld_o;
-//         dtlb2fu_lsu_hit_i <= fu2dtlb_lsu_iss_vld_o;
-//     if (fu2dtlb_lsu_iss_vld_o) begin
-//         dtlb2fu_lsu_ptag_i <= {{(PHYSICAL_ADDR_LEN-VIRTUAL_ADDR_LEN){1'b0}}, fu2dtlb_lsu_iss_vtag_o};
-//     end
-// end
 
 // dcache
 // 1-cycle delay
@@ -431,7 +384,9 @@ end
 
 // back to lsu
 always @(posedge clk) begin
-    if (0) begin
+    if (rst) begin
+        l1d2fu_lsu_wb_vld_i <= 0;
+    end else if (0) begin
         l1d2fu_lsu_wb_rob_index_i <= 0;
         l1d2fu_lsu_wb_vld_i <= 0;
         l1d2fu_lsu_prf_wb_vld_i <= 0;
@@ -458,129 +413,40 @@ always @(posedge clk) begin
     end
 end
 
-// pmp
-
 real inst, cycle, ipc;
+logic haha;
 
-// to host
 always @(posedge clk) begin
     inst = tb_top.core_u.csr_regfile_u.minstret;
     cycle = tb_top.core_u.csr_regfile_u.mcycle;
     ipc = inst/cycle;
+    if(rst) begin
+        haha = 0;
+    end
+
     if(((dram_waddr_3_delay == 56'h80001000) && st_vld_3_delay) || ((dram_waddr_3_delay == 56'h80003000) && st_vld_3_delay)) begin //&& valid
         if (dram_wdata_3_delay == 1) begin
             $display("test pass");
-            $fwrite(run_test_fd, "%s test pass", `HEX_DIR);
-            $fdisplay(run_test_fd, "  inst = %d, cycle = %d, ipc = %f", tb_top.core_u.csr_regfile_u.minstret, tb_top.core_u.csr_regfile_u.mcycle, ipc);
+            $display("%s test pass", `HEX_DIR);
+            $display("inst = %d, cycle = %d, ipc = %f", inst, cycle, ipc);
+            haha = 1;
             $finish;
         end
         else begin
             fromhost = 1;
             $display("to host value is: %x", dram_wdata_3_delay);
-            // $fwrite(run_test_fd, "%s test failed", `HEX_DIR);
-            // $fdisplay(run_test_fd, "  inst = %d, cycle = %d, ipc = %f", tb_top.core_u.csr_regfile_u.minstret, tb_top.core_u.csr_regfile_u.mcycle, ipc);
+            // $display("%s test failed", `HEX_DIR);
+            $display("inst = %d, cycle = %d, ipc = %f", inst, cycle, ipc);
             // $finish;
         end
     end else begin
         fromhost = 0;
     end
-end
 
-// initial begin
-//     $monitor ("test_rd_first = %d", tb_top.core_u.rcu_u.test_rd_first);
-// end
-
-// always @(posedge clk) begin 
-//     for (int i = 0; i < FRLIST_DEPTH; i = i + 1) begin
-//         queue[i] = tb_top.core_u.rcu_u.free_list_u.fifo_queue[i];
-//     end
-//     for (int i = tb_top.core_u.rcu_u.free_list_u.rd_line; i < {tb_top.core_u.rcu_u.free_list_u.fifo_recount ,tb_top.core_u.rcu_u.free_list_u.wr_line}-1; i = i + 1) begin
-//         for (int j = i + 1; j < {tb_top.core_u.rcu_u.free_list_u.fifo_recount ,tb_top.core_u.rcu_u.free_list_u.wr_line}; j = j + 1) begin
-//             if(queue[j] == queue[i]) begin
-//                 if (queue[j] != 0 && queue[i] != 0) begin
-//                     signal <= 1;
-//                 end
-//             end
-//         end
-//     end
-// end
-
-// int n;
-// int queue_free[32 + 48];
-// logic error;
-// logic [PHY_REG_ADDR_WIDTH-1:0] same_name;
-// wire [5:0] max_line = {tb_top.core_u.rcu_u.free_list_u.fifo_recount * 6'h2f} + {tb_top.core_u.rcu_u.free_list_u.wr_line}-1;
-
-// always @(posedge clk) begin
-//     for (int i = 0; i < 32 + 48 -1; i = i + 1) begin
-//         queue_free[i] = 0;
-//     end
-//     n = 0;
-//     error = 0;
-//     for (int i = 0; i < 32; i = i + 1) begin
-//         queue_free[i] = tb_top.core_u.rcu_u.rename_reg[i];
-//     end
-//     n = 32;
-//     for (int i = tb_top.core_u.rcu_u.free_list_u.rd_line; i <= max_line; i = i + 1) begin
-//         if (i >= 47) begin
-//             queue_free[n] = tb_top.core_u.rcu_u.free_list_u.fifo_queue[i - 47];
-//         end else begin
-//             queue_free[n] = tb_top.core_u.rcu_u.free_list_u.fifo_queue[i];
-//         end
-//         n = n + 1;
-//     end
-//     for (int i = 0; i < 32 + 48 - 1; i = i + 1) begin
-//         for (int j = i + 1; j < 32 + 48; j = j + 1) begin
-//             if (queue_free[i] == queue_free[j]) begin
-//                 if (queue_free[i] != 0) begin
-//                     error = 1;
-//                     same_name = queue_free[i];
-//                 end
-//             end
-//         end
-//     end
-// end
-
-
-always @(posedge clk) begin
-    if (tb_top.core_u.rcu_u.do_rob_commit_first) begin
-        $fdisplay (co_sim_fd, "-----");
-        $fdisplay (co_sim_fd, "0x%0x", (tb_top.core_u.rcu_u.test_pc_first));
-        // $fwrite (co_sim_fd, "p%0x, ", tb_top.core_u.rcu_u.test_prd_first);
-        if (tb_top.core_u.rcu_u.test_rd_first != 0) begin
-            $fwrite (co_sim_fd, "x%0d <- 0x%x\n", tb_top.core_u.rcu_u.test_rd_first, tb_top.core_u.rcu2prf_test_rdata_first);
-        end
-    end
-    if (tb_top.core_u.rcu_u.do_rob_commit_second) begin
-        $fdisplay (co_sim_fd, "-----");
-        $fdisplay (co_sim_fd, "0x%0x",(tb_top.core_u.rcu_u.test_pc_second));
-        // $fwrite (co_sim_fd, "p%0x, ", tb_top.core_u.rcu_u.test_prd_second);
-        if (tb_top.core_u.rcu_u.test_rd_second != 0) begin
-            $fwrite (co_sim_fd, "x%0d <- 0x%x\n", tb_top.core_u.rcu_u.test_rd_second, tb_top.core_u.rcu2prf_test_rdata_second);
-        end
+    if (haha) begin
+        $finish;
     end
 end
-
-`ifdef HAHA
-always @(posedge clk) begin
-    if (tb_top.core_u.rcu_u.do_rob_commit_first & !tb_top.core_u.rcu_u.dff_cmt_miss_delay) begin
-        $fdisplay (co_sim_haha_fd, "-----");
-        $fdisplay (co_sim_haha_fd, "0x%0x", (tb_top.core_u.rcu_u.test_pc_first));
-        // $fwrite (co_sim_haha_fd, "p%0x, ", tb_top.core_u.rcu_u.test_prd_first);
-        if (tb_top.core_u.rcu_u.test_rd_first != 0) begin
-            $fwrite (co_sim_haha_fd, "x%0d <- 0x%x\n", tb_top.core_u.rcu_u.test_rd_first, tb_top.core_u.rcu2prf_test_rdata_first);
-        end
-    end
-    if (tb_top.core_u.rcu_u.do_rob_commit_second & !tb_top.core_u.rcu_u.dff_cmt_miss_delay) begin
-        $fdisplay (co_sim_haha_fd, "-----");
-        $fdisplay (co_sim_haha_fd, "0x%0x",(tb_top.core_u.rcu_u.test_pc_second));
-        // $fwrite (co_sim_haha_fd, "p%0x, ", tb_top.core_u.rcu_u.test_prd_second);
-        if (tb_top.core_u.rcu_u.test_rd_second != 0) begin
-            $fwrite (co_sim_haha_fd, "x%0d <- 0x%x\n", tb_top.core_u.rcu_u.test_rd_second, tb_top.core_u.rcu2prf_test_rdata_second);
-        end
-    end
-end
-`endif
 
 core_top core_u(
     .clk(clk),
@@ -676,24 +542,6 @@ core_top core_u(
 );
 
 // wave log
-initial begin
-    int dumpon = 0;
-    string log;
-    string wav;
-    $value$plusargs("dumpon=%d",dumpon);
-    if ($value$plusargs("sim_log=%s",log)) begin
-        $display("wave_log= %s",log);
-    end
-    wav = {`WAVE_FILE};
-    $display("wave_log= %s",wav);
-    if(dumpon > 0) begin
-      $fsdbDumpfile(wav);
-      $fsdbDumpvars(0,tb_top);
-      $fsdbDumpvars("+struct");
-      $fsdbDumpvars("+mda");
-      $fsdbDumpvars("+all");
-      $fsdbDumpon;
-    end
-end
+
 
 endmodule

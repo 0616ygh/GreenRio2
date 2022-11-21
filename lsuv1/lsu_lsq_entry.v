@@ -1,8 +1,8 @@
 `ifndef _LSU_LSQ_ENTRY_V_
 `define _LSU_LSQ_ENTRY_V_
-`ifndef VCS
-`include "../params.vh"
-`endif // VCS
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 
 module lsu_lsq_entry (
     // global

@@ -1,7 +1,7 @@
 `ifndef DECODE_V
 `define DECODE_V
-`ifndef SYNTHESIS
-`include "../params.vh"
+`ifdef VERILATOR
+`include "params.vh"
 `endif
 module decode (
     input clk,

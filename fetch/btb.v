@@ -1,3 +1,6 @@
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module btb #(
     parameter BTB_SIZE_1 = 3
 )(

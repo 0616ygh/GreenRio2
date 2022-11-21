@@ -1,4 +1,8 @@
 //`include "../params.vh"
+`ifdef VERILATOR
+`include "params.vh"
+`endif
+
 module csr (
     input clk,
     input rst,

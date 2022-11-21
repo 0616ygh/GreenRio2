@@ -20,7 +20,9 @@
 // Comments:
 //
 //********************************************************************************
-
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module dpram64_2r1w
   #(parameter SIZE=0, // byte
     parameter AXI_DATA_WIDTH=520,

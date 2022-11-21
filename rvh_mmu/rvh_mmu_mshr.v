@@ -1,3 +1,6 @@
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module rvh_mmu_mshr #(
     parameter ALLOC_WIDTH = 1,
     parameter ENTRY_COUNT = 1,

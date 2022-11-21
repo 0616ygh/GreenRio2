@@ -5,9 +5,9 @@
 /////////////////////////
 `ifndef _LSU_AGU_V_
 `define _LSU_AGU_V_
-`ifndef VCS
-`include "../params.vh"
-`endif // VCS
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 
 module lsu_agu(
     input clk, 

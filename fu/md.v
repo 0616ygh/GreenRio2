@@ -22,6 +22,9 @@
 //
 //`include "../params.vh"
 
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module md(
     input  wire         clk,
     input  wire         rst,

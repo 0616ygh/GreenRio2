@@ -1,3 +1,6 @@
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module mul(
     // Clock and reset
     input          clk_i,

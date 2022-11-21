@@ -1,5 +1,6 @@
-//`include "../params.vh"
-
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module gshare (
   input clk,
   input reset,

@@ -1,3 +1,6 @@
+`ifdef VERILATOR
+`include "params.vh"
+`endif
 module rvh_tlb_arbiter #(
     parameter DTLB_PRIOR = 1
 ) (

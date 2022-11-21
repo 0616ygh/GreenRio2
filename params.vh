@@ -399,13 +399,5 @@ parameter DEC_FIFO_SIZE_WIDTH = 3;
 parameter MD_DATA_WIDTH = ROB_INDEX_WIDTH + PHY_REG_ADDR_WIDTH + XLEN + XLEN + 3 + 1;
 parameter LSU_DATA_WIDTH = ROB_INDEX_WIDTH + PHY_REG_ADDR_WIDTH + XLEN + XLEN + IMM_LEN + 1 + 1 + LDU_OP_WIDTH + STU_OP_WIDTH + 1 + 2 + 1 + 1 + 1;
 
-
-//mmu
-parameter PTW_ID_WIDTH = 1;
-parameter TRANS_ID_WIDTH = 3;
-parameter PADDR_WIDTH = 56;
-parameter EXCP_CAUSE_WIDTH = 64;
-parameter VPN_WIDTH = 27;
-parameter PMP_ENTRY_COUNT = 8;
 /*verilator lint_off UNUSED */
 `endif // PARAMS_VH
